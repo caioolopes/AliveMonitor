@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  dockercompose:
+    image: alpine:3.24
+    container_name: dockercompose 
+    
+  
+    environment:
+      - DATABASE.USERNAME={DATABASE.USERNAME}
+      - DATABASE.DB={DATABASE.DB}
+      - DATABASE.HOST={DATABASE.HOST}
+      - DATABASE.PORT={DATABASE.PORT}
+      - DATABASE.PASSWORD={DATABASE.PASSWORD}
+      - DATABASE_URL={DATABASE.URL}
+    restart: unless-stopped

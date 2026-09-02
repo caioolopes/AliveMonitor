@@ -1,0 +1,36 @@
+{
+  "name": "alivemonitor",
+  "version": "1.0.0",
+  "description": "Uma plataforma onde usuários autenticados podem cadastrar URLs de diferentes serviços (sites, APIs, domínios) e receber alertas automáticos caso a aplicação monitorada fique offline, apresente erros ou demonstre alta latência.",
+  "homepage": "https://github.com/caioolopes/AliveMonitor#readme",
+  "bugs": {
+    "url": "https://github.com/caioolopes/AliveMonitor/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caioolopes/AliveMonitor.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "prisma skills sync || exit 0",
+    "dev": "next dev"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.10.0",
+    "eslint": "^10.9.1",
+    "next": "^16.3.4"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18",
+    "dotenv": "^17.4.2",
+    "prisma": "^7.10.0",
+    "typescript": "^5.9.3"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}

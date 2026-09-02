@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+ 
+}
+model User {
+  id           String          @id @default(uuid())
+  name         String
+  email        String          @unique
+  passwordHash String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  sessions     Session[]
+  targets      MonitorTarget[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model MonitorTarget {
+  id              String    @id @default(uuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String
+  url             String
+  intervalMinutes Int       @default(5)
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  logs            PingLog[]
+}
+
+model PingLog {
+  id         String        @id @default(uuid())
+  targetId   String
+  target     MonitorTarget @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  statusCode Int?
+  latencyMs  Int
+  isUp       Boolean
+  createdAt  DateTime      @default(now())
+}
