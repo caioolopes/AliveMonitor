@@ -15,8 +15,9 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "postinstall": "prisma skills sync || exit 0",
-    "dev": "docker compose up -d && sleep 3 && npx prisma migrate deploy && next dev",
+    "dev": "next dev",
+    "dev:db": "docker compose up -d && sleep 3 && npx prisma migrate deploy && next dev",
+    "build": "next build",
     "test": "vitest run"
   },
   "dependencies": {
