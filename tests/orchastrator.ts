@@ -1,8 +1,10 @@
 import retry from "async-retry";
 import { faker } from "@faker-js/faker";
+import * as util from "node:util";
+import { exec } from "node:child_process";
 
 import database from "../infra/database";
-import user from "../models/use";
+import user from "../models/user";
 import session from "../models/session";
 
 async function waitForAllServices() {
@@ -26,10 +28,20 @@ async function waitForAllServices() {
 
 async function clearDatabase() {
   await database.query("drop schema public cascade; create schema public;");
+  await runPendingMigrations();
 }
 
+const execAsync = util.promisify(exec);
+
 async function runPendingMigrations() {
-  const { stdout, stderr } = await execAsync("npx prisma migrate deploy");
+  console.log('Executando migrations do Prisma...');
+  try {
+    const { stdout } = await execAsync('npx prisma migrate deploy');
+    console.log(stdout);
+  } catch (error) {
+    console.error('Erro ao executar as migrations:', error);
+    throw error;
+  }
 }
 
 async function createUser(userObject) {
@@ -54,7 +66,3 @@ const orchestrator = {
 };
 
 export default orchestrator;
-
-function execAsync(arg0: string): { stdout: any; stderr: any; } | PromiseLike<{ stdout: any; stderr: any; }> {
-    throw new Error("Function not implemented.");
-}
