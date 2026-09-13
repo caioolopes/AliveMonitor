@@ -1,5 +1,5 @@
 import database from "../infra/database";
-import password from "../models/password";
+import password from "./password";
 import { ValidationError, NotFoundError } from "../infra/errors";
 
 async function findOneById(id) {

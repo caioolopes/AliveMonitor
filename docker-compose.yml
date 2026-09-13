@@ -1,16 +1,13 @@
 services:
   database:
-    image: postgres:16-alpine
-    container_name: alivemonitor-database
-    restart: unless-stopped
+    container_name: "postgres-dev"
+    image: postgres:16.15-alpine
+    env_file:
+      - ./.env
+    # Adicione esta seção para traduzir as variáveis para o Postgres
+    environment:
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_DB}
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-postgres}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-volumes:
-  pgdata:
