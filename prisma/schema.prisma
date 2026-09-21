@@ -32,24 +32,28 @@ model Session {
 }
 
 model MonitorTarget {
-  id              String    @id @default(uuid())
-  userId          String
+  id              String    @id @default(uuid()) @db.Uuid
+  userId          String    @map("user_id") @db.Uuid // Alinhado com User.id
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   name            String
   url             String
   intervalMinutes Int       @default(5)
   isActive        Boolean   @default(true)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
   logs            PingLog[]
+
+  @@map("monitor_targets")
 }
 
 model PingLog {
-  id         String        @id @default(uuid())
-  targetId   String
+  id         String        @id @default(uuid()) @db.Uuid
+  targetId   String        @map("target_id") @db.Uuid
   target     MonitorTarget @relation(fields: [targetId], references: [id], onDelete: Cascade)
-  statusCode Int?
-  latencyMs  Int
-  isUp       Boolean
-  createdAt  DateTime      @default(now())
+  statusCode Int?          @map("status_code")
+  latencyMs  Int           @map("latency_ms")
+  isUp       Boolean       @map("is_up")
+  createdAt  DateTime      @default(now()) @map("created_at")
+
+  @@map("ping_logs")
 }
