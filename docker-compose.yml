@@ -5,9 +5,5 @@ services:
     env_file:
       - ./.env
     # Adicione esta seção para traduzir as variáveis para o Postgres
-    environment:
-      - POSTGRES_USER=${DATABASE_USERNAME}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=${DATABASE_DB}
     ports:
       - "5432:5432"

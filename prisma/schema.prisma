@@ -7,32 +7,33 @@ datasource db {
  
 }
 model User {
-  id           String          @id @default(uuid()) @db.Uuid
+  id           String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   username     String          @unique
   email        String          @unique
   password     String
   createdAt    DateTime        @default(now()) @map("created_at")
-  updatedAt    DateTime        @updatedAt @map("updated_at")
+  updatedAt    DateTime        @default(now()) @updatedAt @map("updated_at")
   sessions     Session[]
   targets      MonitorTarget[]
+  passwordResetTokens PasswordResetToken[]
 
   @@map("users")
 }
 
 model Session {
-  id        String   @id @default(uuid()) @db.Uuid
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   token     String   @unique
   userId    String   @map("user_id") @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime @map("expires_at")
   createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("sessions")
 }
 
 model MonitorTarget {
-  id              String    @id @default(uuid()) @db.Uuid
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   userId          String    @map("user_id") @db.Uuid // Alinhado com User.id
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   name            String
@@ -40,14 +41,14 @@ model MonitorTarget {
   intervalMinutes Int       @default(5)
   isActive        Boolean   @default(true)
   createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime  @updatedAt @map("updated_at")
+  updatedAt       DateTime  @default(now()) @updatedAt @map("updated_at")
   logs            PingLog[]
 
   @@map("monitor_targets")
 }
 
 model PingLog {
-  id         String        @id @default(uuid()) @db.Uuid
+  id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   targetId   String        @map("target_id") @db.Uuid
   target     MonitorTarget @relation(fields: [targetId], references: [id], onDelete: Cascade)
   statusCode Int?          @map("status_code")
@@ -56,4 +57,18 @@ model PingLog {
   createdAt  DateTime      @default(now()) @map("created_at")
 
   @@map("ping_logs")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String    @map("user_id") @db.Uuid
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  codeHash  String    @unique @map("code_hash")
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  attempts  Int       @default(0)
+
+  @@index([userId])
+  @@map("password_reset_tokens")
 }

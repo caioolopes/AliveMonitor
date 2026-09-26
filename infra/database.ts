@@ -20,11 +20,7 @@ async function query(queryObject) {
 
 async function getNewClient() {
   const client = new Client({
-    host: process.env.DATABASE_HOST,
-    port: 5432,
-    user: process.env.DATABASE_USERNAME,
-    database: process.env.DATABASE_DB,
-    password: process.env.DATABASE_PASSWORD,
+    connectionString: process.env.DATABASE_URL,
     ssl: getSSLValues(),
   });
 
