@@ -225,6 +225,8 @@ export default function HomePage() {
               <input type="password" autoComplete={isLogin ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="••••••••" minLength={6} required />
             </label>
 
+            {isLogin && <a className="forgot-link" href="/esqueci-minha-senha">Esqueci minha senha</a>}
+
             {feedback && (
               <div className={`feedback ${feedback.message === "Conta criada com sucesso." ? "success" : "error"}`} role="alert">
                 <strong>{feedback.message}</strong>
@@ -306,6 +308,8 @@ export default function HomePage() {
         .feedback { display: grid; gap: 4px; padding: 12px 14px; border: 1px solid #f0c7c7; border-left: 2px solid #e33131; border-radius: 4px; background: #fff5f5; color: #a52a2a; font-size: 12px; line-height: 1.4; }
         .feedback.success { border-color: #c7d9ad; background: #f5faed; color: #4d7028; }
         .feedback span { color: #777770; }
+        .forgot-link { justify-self: end; margin-top: -10px; color: #c92f2f; font-size: 12px; text-decoration: none; }
+        .forgot-link:hover { text-decoration: underline; }
         .submit-button { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; padding: 16px 18px; border: 0; border-radius: 4px; background: #e33131; color: #fff; cursor: pointer; font-weight: 700; }
         .submit-button:hover:not(:disabled) { background: #ff4444; }
         .submit-button:disabled { cursor: wait; opacity: .65; }
@@ -332,6 +336,7 @@ export default function HomePage() {
         .dark-theme .feedback { background: #321c1c; border-color: #693b3b; color: #ffc4c4; }
         .dark-theme .feedback.success { background: #26331d; border-color: #52683b; color: #d8edbd; }
         .dark-theme .feedback span { color: #c9c4bb; }
+        .dark-theme .forgot-link { color: #ff7777; }
         .dark-theme .theme-switch { border-color: #454541; background: #181817; }
         .dark-theme .theme-switch button { color: #aaa9a3; }
         .dark-theme .theme-switch button.active { background: #333330; color: #fff; }

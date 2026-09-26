@@ -2,7 +2,8 @@ import { version as uuidVersion } from "uuid";
 import setCookieParser from "set-cookie-parser";
 import orchestrator from "../../../../orchastrator";
 import session from "../../../../../models/session";
-import { beforeAll, describe, test, expect, vi } from "vitest"
+import database from "../../../../../infra/database";
+import { beforeAll, describe, test, expect } from "vitest"
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
@@ -36,17 +37,16 @@ describe("DELETE /api/v1/sessions", () => {
     });
 
     test("With expired session", async () => {
-      vi.useFakeTimers({
-        now: new Date(Date.now() - session.EXPIRATION_IN_MILLISECONDS),
-      });
-
       const createdUser = await orchestrator.createUser({
         username: "UserWithExpiredSession",
       });
 
       const sessionObject = await orchestrator.createSession(createdUser.id);
-
-      vi.useRealTimers();
+      // A API compara a expiração com o relógio do banco, então o teste ajusta o mesmo relógio.
+      await database.query({
+        text: `UPDATE sessions SET expires_at = NOW() - INTERVAL '1 second' WHERE id = $1;`,
+        values: [sessionObject.id],
+      });
 
       const response = await fetch("http://localhost:3000/api/v1/sessions", {
         method: "DELETE",

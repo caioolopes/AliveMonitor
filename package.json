@@ -15,8 +15,8 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "dev": "next dev",
-    "dev:db": "docker compose up -d && sleep 3 && npx prisma migrate deploy && next dev",
+    "dev": "npx prisma generate && next dev",
+    "dev:db": "docker compose up -d && sleep 3 && npx prisma generate && npx prisma migrate deploy && next dev",
     "build": "next build",
     "test": "vitest run"
   },
@@ -31,6 +31,7 @@
     "eslint": "^10.9.1",
     "next": "^16.3.4",
     "next-connect": "^1.0.0",
+    "nodemailer": "^10.0.10",
     "pg": "^8.23.0",
     "set-cookie-parser": "^3.1.2",
     "swr": "^2.5.1",
@@ -41,6 +42,7 @@
     "@swc/core": "^1.16.1",
     "@types/async-retry": "^1.4.9",
     "@types/node": "26.4.1",
+    "@types/nodemailer": "^8.0.2",
     "@types/pg": "^8.23.1",
     "@types/react": "19.2.18",
     "dotenv": "^17.4.2",
