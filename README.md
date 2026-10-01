@@ -1,8 +1,8 @@
-🌐 AliveMonitor
+<h1>🌐 AliveMonitor</h1>
 
 Plataforma moderna e robusta para monitoramento contínuo de disponibilidade (uptime) e latência de endpoints HTTP e serviços web. O sistema conta com autenticação segura baseada em sessões, recuperação de senhas por e-mail e cobertura completa de testes automatizados.
 
-🚀 Funcionalidades
+<h1>🚀 Funcionalidades</h1>
 
 Monitoramento de Serviços: Cadastro, acompanhamento e registro de histórico de respostas e latência de URLs/endpoints.
 
@@ -14,7 +14,7 @@ Recuperação de Contas: Fluxo de redefinição de senha com tokens e códigos t
 
 Alta Cobertura de Testes: Suíte de testes unitários, testes de integração de API e orquestração de ambiente de banco de dados isolado.
 
-🛠 Tecnologias Utilizadas
+<h1>🛠 Tecnologias Utilizadas</h1>
 
 Core & Frameworks
 
@@ -24,7 +24,7 @@ TypeScript: Tipagem estática em toda a aplicação para maior segurança e prev
 
 Node.js: Ambiente de execução JavaScript no servidor.
 
-Persistência de Dados
+<h1>Persistência de Dados</h1>
 
 PostgreSQL: Banco de dados relacional principal.
 
@@ -40,7 +40,7 @@ Infraestrutura & DevOps
 
 Docker & Docker Compose: Conteinerização do banco de dados e dependências de ambiente.
 
-📁 Estrutura do Projeto
+<h1>📁 Estrutura do Projeto</h1>
 
 AliveMonitor/
 ├── infra/                  # Camada de banco de dados, envio de e-mail e tratamento de erros
@@ -51,9 +51,9 @@ AliveMonitor/
 └── tests/                  # Testes unitários, de integração e orquestrador
 
 
-💻 Como Instalar e Executar
+<h1>💻 Como Instalar e Executar</h1>
 
-Pré-requisitos
+<h3>Pré-requisitos</h3>
 
 Node.js (versão 18+ recomendada)
 
@@ -61,7 +61,7 @@ Docker e Docker Compose
 
 Git
 
-Passo a Passo
+<h1>Passo a Passo</h1>
 
 Clone o repositório:
 
@@ -97,13 +97,13 @@ Inicie o servidor de desenvolvimento:
 
 Abra http://localhost:3000 no seu navegador para acessar a aplicação.
 
-🧪 Executando os Testes
+<h1>🧪 Executando os Testes</h1>
 
 Para rodar a suíte completa de testes com o Vitest:
 
     npm test
 
 
-📄 Licença
+<h1>📄 Licença</h1>
 
 Este projeto está sob a licença MIT.
